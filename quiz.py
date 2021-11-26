@@ -6,16 +6,24 @@ def input_matrix():
     valid_input = False
     while not valid_input:
       ## T0-DO: use a try-except block to get the right input from the user
-      inp = input()
-      M.append(float(inp))
-      valid_input = True
-
+      try:
+        inp = input()
+        M.append(float(inp))
+      except:
+        inp = input()
+      else:  
+        valid_input = True
+ 
   return tuple(M)
 
 def inverse(M):  
-  ## TO-DO: use a try-except block to catch zero division error      
-  det = M[0] * M[3] - M[1] * M[2]
-  if det == 0:
+  ## TO-DO: use a try-except block to catch zero division error     
+  try: 
+    det = M[0] * M[3] - M[1] * M[2]
+    M_inv = [M[3], -M[1], -M[2], M[0]]
+    for i in range(4):
+      M_inv[i] /= det
+  except:
     print('Determinant is 0, inverse does not exist')
     return None
   else:
@@ -29,10 +37,10 @@ def matmul(M1, M2):
 
 def almost_identity(m, eps):
   ## TO-DO: do this check with assert
-  if abs(m[0] - 1) < eps and abs(m[1]) < eps and abs(m[2]) < eps and abs(m[3] - 1) < eps:
-    'There is a problem in the inverse function'
-  else:
-    print('Matrix is equal to identity')
+    ## TO-DO: do this check with assert
+  assert( (abs(m[0] - 1) < eps and abs(m[1]) < eps and abs(m[2]) < eps and abs(m[3] - 1) < eps) ==False ,    'There is a problem in the inverse function')
+
+  assert( (abs(m[0] - 1) < eps and abs(m[1]) < eps and abs(m[2]) < eps and abs(m[3] - 1) < eps) ==True , 'Matrix is equal to identity')
 
 M = input_matrix()
 M_inv = inverse(M)
